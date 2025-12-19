@@ -29,6 +29,7 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 4. Send interview invitation emails with Calendly links
 5. Update mail status and timestamps
 6. Calculate turnaround time (TAT)
+
 <img width="1618" height="767" alt="image" src="https://github.com/user-attachments/assets/122cb152-8617-4ddb-8dfc-45075cc10acb" />
 ---
 
@@ -36,6 +37,7 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 
 ### Problem
 Some candidates have multiple interview rounds stored in a single cell under the **Scheduling method** column.
+
  <img width="1007" height="513" alt="image" src="https://github.com/user-attachments/assets/f550a74c-846c-4097-a84b-4d949af341e4" />
  
 ---
@@ -49,6 +51,7 @@ Some candidates have multiple interview rounds stored in a single cell under the
   - Parse interview rounds line by line
   - Extract interview round names and Calendly links
   - Create one row per interview round
+    
     <img width="1487" height="705" alt="image" src="https://github.com/user-attachments/assets/1b585191-b6a0-4f0a-a399-5c1de858c6f4" />
 
 ### Result
@@ -58,6 +61,7 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 
 ## Task 2: MailerSend Integration
  ### MailerSend API to send interview invitation emails
+ 
   <img width="1537" height="790" alt="image" src="https://github.com/user-attachments/assets/10e45112-a53c-4c94-aa15-3fe2da1fd0b9" />
 
 ### Problem
@@ -76,10 +80,12 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 - **Valid email** → Email sent → Status marked as **Sent**
 - **Invalid email domain** → Skipped → Status marked as **Invalid Email**
 - **API rejection** → Status marked as **Failed**
+  
   <img width="504" height="572" alt="image" src="https://github.com/user-attachments/assets/9aca1a94-cfaf-40e5-87a2-6ae18b84e232" />
 
 
-📌 **Note:** The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
+Note: The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
+
 <img width="1916" height="913" alt="image" src="https://github.com/user-attachments/assets/effca72e-c89d-43cd-a497-0d1c4a8d4ac3" />
 ---
 
@@ -91,9 +97,10 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 - **TAT (Minutes)** – Formula field
 
 ### Formula Used
-  DATETIME_DIFF({Mail Sent Time}, {Added On}, 'minutes')
+  **DATETIME_DIFF({Mail Sent Time}, {Added On}, 'minutes')**
 
 -This is an Airtable formula to calculate TAT (Turn Around Time) in minutes between when the candidate was added and when the mail was sent.
+
 -TAT is calculated only for successfully sent emails to ensure accuracy and avoid misleading metrics for failed or invalid email records.
 
 ---
