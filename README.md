@@ -56,6 +56,46 @@ Some candidates have multiple interview rounds stored in a single cell under the
  
     <img width="1150" height="1074" alt="image" src="https://github.com/user-attachments/assets/c6bb2767-76b2-477c-9315-6d947df053d9" />
 
+---
+**Airtable Script (Data Splitting)**
+
+let rawTable = base.getTable("Candidates_Raw");
+let splitTable = base.getTable("Candidates_Split");
+
+let query = await rawTable.selectRecordsAsync();
+
+for (let record of query.records) {
+
+    let scheduling = record.getCellValue("Scheduling Method");
+    if (!scheduling) continue;
+
+    // Split lines (each round is on a new line)
+    let rounds = scheduling.split("\n");
+
+    for (let line of rounds) {
+
+        if (!line.includes(":")) continue;
+
+        let parts = line.split(":");
+        let roundName = parts[0].trim();
+        let calendlyLink = parts.slice(1).join(":").trim();
+
+        await splitTable.createRecordAsync({
+            "Company": record.getCellValue("Company"),
+            "Interviewer": record.getCellValue("Interviewer"),
+            "Interviewer Email": record.getCellValue("Interviewer Email"),
+            "Candidate": record.getCellValue("Candidate"),
+            "Candidate Email": record.getCellValue("Candidate Email"),
+            "Interview Round": roundName,
+            "Calendly Link": calendlyLink,
+            "Added On": record.getCellValue("Added On")
+        });
+    }
+}
+
+---
+   
+
 ### Result
 If a candidate has **3 interview rounds**, **3 separate rows** are created with the same candidate details and different interview rounds and Calendly links.
 
@@ -83,7 +123,78 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
     <img width="1147" height="961" alt="image" src="https://github.com/user-attachments/assets/51fe60a4-d850-4c7a-8b6b-0d902e6e7356" />
     <img width="1148" height="823" alt="image" src="https://github.com/user-attachments/assets/85cb2646-7f5b-492b-b239-571b28ad878e" />
 
+---
+**Script (MailerSend API)**
 
+let table = base.getTable("Candidates_Split");
+let query = await table.selectRecordsAsync();
+
+let API_KEY = "mlsn.23b415df1bfd0d1ab6558443380f6e1f6cd3ee7fd525fdcc8a53ada9300b680b";
+
+function isValidEmail(email) {
+    return email.includes("@") && email.endsWith(".com");
+}
+
+for (let record of query.records) {
+
+    let status = record.getCellValue("Mail Status");
+    if (status && status.name === "Sent") continue;
+
+    let email = record.getCellValue("Candidate Email");
+    let name = record.getCellValue("Candidate");
+    let round = record.getCellValue("Interview Round");
+    let calendly = record.getCellValue("Calendly Link");
+
+    if (!isValidEmail(email)) {
+        console.log("Invalid email skipped:", email);
+        await table.updateRecordAsync(record.id, {
+            "Mail Status": { name: "Invalid Email" }
+        });
+        continue;
+    }
+
+    let response = await remoteFetchAsync("https://api.mailersend.com/v1/email", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            from: {
+                email: "no-reply@trial.mailersend.net",
+                name: "Weekday Hiring"
+            },
+            to: [{
+                email: email,
+                name: name
+            }],
+            subject: `Interview Invitation – ${round}`,
+            text: `Hi ${name},
+
+You are invited for the ${round} interview round.
+
+Schedule your interview using the link below:
+${calendly}
+
+Regards,
+Weekday Team`
+        })
+    });
+
+    if (response.ok) {
+        await table.updateRecordAsync(record.id, {
+            "Mail Sent Time": new Date(),
+            "Mail Status": { name: "Sent" }
+        });
+    } else {
+        console.log("MailerSend rejected:", email);
+        await table.updateRecordAsync(record.id, {
+            "Mail Status": { name: "Failed" }
+        });
+    }
+}
+
+---
 
 ### Email Logic
 - **Valid email** → Email sent → Status marked as **Sent**
