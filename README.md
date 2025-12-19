@@ -1,2 +1,63 @@
-# interview-scheduling-automation
-Automated interview scheduling workflow using Airtable and MailerSend that cleans candidate data, splits interview rounds, sends invitation emails, and calculates turnaround time (TAT).
+# Interview Scheduling Automation
+
+An automated workflow to streamline interview scheduling, candidate communication, and turnaround time (TAT) tracking using Airtable and MailerSend.
+
+## Overview
+This project automates the process of handling interview scheduling by:
+- Cleaning and restructuring candidate data
+- Splitting multiple interview rounds into individual records
+- Sending interview invitation emails with appropriate Calendly links
+- Calculating turnaround time (TAT) for the scheduling process
+
+The solution is built using Airtable’s scripting capabilities and the MailerSend email API, while remaining compatible with free-tier tool limitations.
+
+---
+
+## Tech Stack
+- Airtable (Base, Tables, Formula Fields)
+- Airtable Scripting Extension
+- MailerSend API
+- CSV Dataset
+
+---
+
+## Workflow
+1. Import candidate data from CSV into Airtable
+2. Split multiple interview rounds into separate rows
+3. Validate candidate email addresses
+4. Send interview invitation emails with Calendly links
+5. Update mail status and timestamps
+6. Calculate turnaround time (TAT)
+
+---
+
+## Features
+- Handles candidates with multiple interview rounds
+- Automated email communication
+- Email validation and error handling
+- Accurate TAT calculation
+- Free-tier friendly implementation
+
+---
+
+## Data Processing
+- Candidates with multiple interview rounds are split into separate records
+- Each record contains one interview round and its corresponding Calendly link
+- Original candidate information remains unchanged across split rows
+
+---
+
+## Email Automation
+- Emails are sent using the MailerSend API
+- Records are marked as:
+  - Sent
+  - Pending
+  - Failed
+  - Invalid Email
+- Invalid email domains are skipped gracefully to avoid API failures
+
+---
+
+## Turnaround Time (TAT)
+TAT is calculated using the formula:
+
