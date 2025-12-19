@@ -31,8 +31,8 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 6. Calculate turnaround time (TAT)
 
 <img width="1618" height="767" alt="image" src="https://github.com/user-attachments/assets/122cb152-8617-4ddb-8dfc-45075cc10acb" />
----
 
+---
 ## Task 1: Data Splitting
 
 ### Problem
@@ -87,6 +87,7 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 Note: The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
 
 <img width="1916" height="913" alt="image" src="https://github.com/user-attachments/assets/effca72e-c89d-43cd-a497-0d1c4a8d4ac3" />
+
 ---
 
 ## Task 3: TAT (Turnaround Time) Calculation
