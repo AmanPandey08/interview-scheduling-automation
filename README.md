@@ -128,7 +128,7 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 let table = base.getTable("Candidates_Split");
 let query = await table.selectRecordsAsync();
 
-let API_KEY = "mlsn.23b415df1bfd0d1ab6558443380f6e1f6cd3ee7fd525fdcc8a53ada9300b680b";
+let API_KEY = "Copy/Paste MailSend API Token here";
 
 function isValidEmail(email) {
     return email.includes("@") && email.endsWith(".com");
