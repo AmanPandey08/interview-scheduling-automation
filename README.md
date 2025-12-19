@@ -51,11 +51,14 @@ Some candidates have multiple interview rounds stored in a single cell under the
   - Parse interview rounds line by line
   - Extract interview round names and Calendly links
   - Create one row per interview round
-    
-    <img width="1487" height="705" alt="image" src="https://github.com/user-attachments/assets/1b585191-b6a0-4f0a-a399-5c1de858c6f4" />
+ 
+    <img width="1150" height="1074" alt="image" src="https://github.com/user-attachments/assets/c6bb2767-76b2-477c-9315-6d947df053d9" />
 
 ### Result
 If a candidate has **3 interview rounds**, **3 separate rows** are created with the same candidate details and different interview rounds and Calendly links.
+
+<img width="1487" height="705" alt="image" src="https://github.com/user-attachments/assets/1b585191-b6a0-4f0a-a399-5c1de858c6f4" />
+
 
 ---
 
@@ -75,6 +78,10 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
   - Identifies records with `Mail Status = Pending`
   - Sends interview invitation emails using MailerSend
   - Updates mail status based on API response
+    <img width="1147" height="961" alt="image" src="https://github.com/user-attachments/assets/51fe60a4-d850-4c7a-8b6b-0d902e6e7356" />
+    <img width="1148" height="823" alt="image" src="https://github.com/user-attachments/assets/85cb2646-7f5b-492b-b239-571b28ad878e" />
+
+
 
 ### Email Logic
 - **Valid email** → Email sent → Status marked as **Sent**
