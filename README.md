@@ -1,7 +1,4 @@
 # Weekday – Interview Scheduling Automation  
-**YC W21 | Founder’s Office Coding Assignment**
-
-An automated workflow to streamline interview scheduling, candidate communication, and turnaround time (TAT) tracking using Airtable and MailerSend.
 
 **Airtable Base Link** : https://airtable.com/appq2CNqGrDoJLXLO/shr1vPQ7skzdzwPfg
 
