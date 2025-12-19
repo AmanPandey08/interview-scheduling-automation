@@ -1,4 +1,5 @@
-# Interview Scheduling Automation
+# Weekday – Interview Scheduling Automation  
+**YC W21 | Founder’s Office Coding Assignment**
 
 An automated workflow to streamline interview scheduling, candidate communication, and turnaround time (TAT) tracking using Airtable and MailerSend.
 
@@ -14,10 +15,10 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 ---
 
 ## Tech Stack
-- Airtable (Base, Tables, Formula Fields)
-- Airtable Scripting Extension
-- MailerSend API
-- CSV Dataset
+- **Airtable** – Data storage and scripting
+- **Airtable Scripting Extension** – Data processing and automation
+- **MailerSend API** – Email delivery
+- **CSV Dataset** – Candidate interview data
 
 ---
 
@@ -28,42 +29,64 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 4. Send interview invitation emails with Calendly links
 5. Update mail status and timestamps
 6. Calculate turnaround time (TAT)
+<img width="1618" height="767" alt="image" src="https://github.com/user-attachments/assets/122cb152-8617-4ddb-8dfc-45075cc10acb" />
+---
+
+## Task 1: Data Splitting
+
+### Problem
+Some candidates have multiple interview rounds stored in a single cell under the **Scheduling method** column.
+ <img width="1297" height="643" alt="image" src="https://github.com/user-attachments/assets/c514e704-0e13-41d8-8dba-5be0952f2e0a" />
+---
+
+### Solution
+- Imported the CSV into Airtable as `Candidates_Raw`
+- Created a new table `Candidates_Split`
+- Used Airtable Scripting to:
+  - Parse interview rounds line by line
+  - Extract interview round names and Calendly links
+  - Create one row per interview round
+
+### Result
+If a candidate has **3 interview rounds**, **3 separate rows** are created with the same candidate details and different interview rounds and Calendly links.
 
 ---
 
-## Features
-- Handles candidates with multiple interview rounds
-- Automated email communication
-- Email validation and error handling
-- Accurate TAT calculation
-- Free-tier friendly implementation
+## Task 2: MailerSend Integration
 
+### Problem
+- Airtable free tier does not support **Run Script** inside Automations
+- Browser-based scripts face **CORS limitations**
+
+### Solution
+- Used **Airtable Scripting Extension**
+- Used `remoteFetchAsync()` to bypass CORS
+- Implemented a master email script that:
+  - Identifies records with `Mail Status = Pending`
+  - Sends interview invitation emails using MailerSend
+  - Updates mail status based on API response
+
+### Email Logic
+- **Valid email** → Email sent → Status marked as **Sent**
+- **Invalid email domain** → Skipped → Status marked as **Invalid Email**
+- **API rejection** → Status marked as **Failed**
+
+📌 **Note:** The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
+<img width="1916" height="913" alt="image" src="https://github.com/user-attachments/assets/effca72e-c89d-43cd-a497-0d1c4a8d4ac3" />
 ---
 
-## Data Processing
-- Candidates with multiple interview rounds are split into separate records
-- Each record contains one interview round and its corresponding Calendly link
-- Original candidate information remains unchanged across split rows
+## Task 3: TAT (Turnaround Time) Calculation
 
----
+### Fields Used
+- **Added On** – Timestamp from the original dataset
+- **Mail Sent Time** – Updated only when an email is successfully sent
+- **TAT (Minutes)** – Formula field
 
-## Email Automation
-- Emails are sent using the MailerSend API
-- Records are marked as:
-  - Sent
-  - Pending
-  - Failed
-  - Invalid Email
-- Invalid email domains are skipped gracefully to avoid API failures
+### Formula Used
+  DATETIME_DIFF({Mail Sent Time}, {Added On}, 'minutes')
 
----
-
-## Turnaround Time (TAT)
-TAT is calculated using the formula:
-  Calculate TAT = Mail Sent Time - Added On Time.
-
-
-TAT is calculated only for successfully sent emails to ensure accuracy and avoid misleading metrics for failed or invalid email records.
+-This is an Airtable formula to calculate TAT (Turn Around Time) in minutes between when the candidate was added and when the mail was sent.
+-TAT is calculated only for successfully sent emails to ensure accuracy and avoid misleading metrics for failed or invalid email records.
 
 ---
 
@@ -73,7 +96,6 @@ TAT is calculated only for successfully sent emails to ensure accuracy and avoid
 - API call failures and retries
 - Duplicate email prevention using mail status checks
 - Accurate timestamp-based TAT calculation
-<img width="1618" height="767" alt="image" src="https://github.com/user-attachments/assets/a3531d09-04c0-4c34-9043-7970b90b2ba7" />
 
 ---
 
