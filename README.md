@@ -73,14 +73,7 @@ TAT is calculated only for successfully sent emails to ensure accuracy and avoid
 - API call failures and retries
 - Duplicate email prevention using mail status checks
 - Accurate timestamp-based TAT calculation
-
----
-
-## Assumptions
-- Each interview round contains a single Calendly link
-- Email delivery success is determined by the MailerSend API response
-- Invalid email domains are expected in the dataset and handled gracefully
-- Free-tier limitations of Airtable are acceptable for this implementation
+<img width="1618" height="767" alt="image" src="https://github.com/user-attachments/assets/a3531d09-04c0-4c34-9043-7970b90b2ba7" />
 
 ---
 
