@@ -203,7 +203,10 @@ Weekday Team`
   <img width="504" height="572" alt="image" src="https://github.com/user-attachments/assets/9aca1a94-cfaf-40e5-87a2-6ae18b84e232" />
 
 
-Note: The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
+**Note:** The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
+
+ - Mail Sent Time and TAT are calculated only when an interview invitation email is successfully delivered. Records with invalid or failed emails are excluded from TAT calculation to ensure accuracy.
+ - This is the reason why Mail Sent Time, Add On and TAT column is empty.
 
 <img width="1916" height="913" alt="image" src="https://github.com/user-attachments/assets/effca72e-c89d-43cd-a497-0d1c4a8d4ac3" />
 
