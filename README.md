@@ -36,16 +36,20 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 
 ### Problem
 Some candidates have multiple interview rounds stored in a single cell under the **Scheduling method** column.
- <img width="1297" height="643" alt="image" src="https://github.com/user-attachments/assets/c514e704-0e13-41d8-8dba-5be0952f2e0a" />
+ <img width="1007" height="513" alt="image" src="https://github.com/user-attachments/assets/f550a74c-846c-4097-a84b-4d949af341e4" />
+ 
 ---
 
 ### Solution
 - Imported the CSV into Airtable as `Candidates_Raw`
+  <img width="1917" height="917" alt="image" src="https://github.com/user-attachments/assets/be693481-bbd7-4e1f-9f96-dafc12d08e87" />
 - Created a new table `Candidates_Split`
+  <img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/437adb56-cee0-47d1-861e-7c0f8e012c58" />
 - Used Airtable Scripting to:
   - Parse interview rounds line by line
   - Extract interview round names and Calendly links
   - Create one row per interview round
+    <img width="1487" height="705" alt="image" src="https://github.com/user-attachments/assets/1b585191-b6a0-4f0a-a399-5c1de858c6f4" />
 
 ### Result
 If a candidate has **3 interview rounds**, **3 separate rows** are created with the same candidate details and different interview rounds and Calendly links.
@@ -53,6 +57,8 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 ---
 
 ## Task 2: MailerSend Integration
+ ### MailerSend API to send interview invitation emails
+  <img width="1537" height="790" alt="image" src="https://github.com/user-attachments/assets/10e45112-a53c-4c94-aa15-3fe2da1fd0b9" />
 
 ### Problem
 - Airtable free tier does not support **Run Script** inside Automations
@@ -70,6 +76,8 @@ If a candidate has **3 interview rounds**, **3 separate rows** are created with 
 - **Valid email** → Email sent → Status marked as **Sent**
 - **Invalid email domain** → Skipped → Status marked as **Invalid Email**
 - **API rejection** → Status marked as **Failed**
+  <img width="504" height="572" alt="image" src="https://github.com/user-attachments/assets/9aca1a94-cfaf-40e5-87a2-6ae18b84e232" />
+
 
 📌 **Note:** The dataset intentionally includes invalid email domains (e.g., `gmail1234.com`) to test validation and error handling.
 <img width="1916" height="913" alt="image" src="https://github.com/user-attachments/assets/effca72e-c89d-43cd-a497-0d1c4a8d4ac3" />
