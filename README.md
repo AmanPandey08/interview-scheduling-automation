@@ -3,6 +3,8 @@
 
 An automated workflow to streamline interview scheduling, candidate communication, and turnaround time (TAT) tracking using Airtable and MailerSend.
 
+**Airtable Base Link** : https://airtable.com/appq2CNqGrDoJLXLO/shr1vPQ7skzdzwPfg
+
 ## Overview
 This project automates the process of handling interview scheduling by:
 - Cleaning and restructuring candidate data
@@ -121,6 +123,8 @@ Note: The dataset intentionally includes invalid email domains (e.g., `gmail1234
 - Accurate timestamp-based TAT calculation
 
 ---
+
+**Important Note : Due to Airtable security restrictions, scripting and automation execution are disabled in public share links. Scripts are provided in the repository for review and can be executed by duplicating the base.**
 
 ## Conclusion
 This project demonstrates a practical, production-style automation workflow that streamlines interview scheduling and communication. It focuses on data integrity, error handling, and accurate turnaround time tracking while working within real-world platform constraints.
