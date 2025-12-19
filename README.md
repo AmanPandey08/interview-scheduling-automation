@@ -60,4 +60,36 @@ The solution is built using Airtable’s scripting capabilities and the MailerSe
 
 ## Turnaround Time (TAT)
 TAT is calculated using the formula:
+  Calculate TAT = Mail Sent Time - Added On Time.
+
+
+TAT is calculated only for successfully sent emails to ensure accuracy and avoid misleading metrics for failed or invalid email records.
+
+---
+
+## Edge Cases Handled
+- Candidates with multiple interview rounds in a single row
+- Invalid or malformed email addresses
+- API call failures and retries
+- Duplicate email prevention using mail status checks
+- Accurate timestamp-based TAT calculation
+
+---
+
+## Assumptions
+- Each interview round contains a single Calendly link
+- Email delivery success is determined by the MailerSend API response
+- Invalid email domains are expected in the dataset and handled gracefully
+- Free-tier limitations of Airtable are acceptable for this implementation
+
+---
+
+## Conclusion
+This project demonstrates a practical, production-style automation workflow that streamlines interview scheduling and communication. It focuses on data integrity, error handling, and accurate turnaround time tracking while working within real-world platform constraints.
+
+---
+
+## Author
+Aman Pandey
+
 
